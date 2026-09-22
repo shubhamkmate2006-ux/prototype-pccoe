@@ -1,0 +1,137 @@
+:root {
+  /* Cyber-Command Center Theme */
+  --bg-dark: #070B19; /* Deep space navy */
+  --bg-card: rgba(14, 23, 48, 0.65); /* Richer translucent card */
+  --bg-card-hover: rgba(23, 38, 77, 0.8);
+  --text-main: #f8fafc;
+  --text-muted: #8b9bb4;
+  --accent-blue: #00f0ff; /* Neon cyan */
+  --accent-red: #ff3366; /* Neon pink/red */
+  --accent-green: #00ff9d; /* Neon mint */
+  --accent-orange: #ff9900; /* Bright orange */
+  --border-color: rgba(0, 240, 255, 0.15); /* Slight cyan tint to borders */
+  --glass-blur: blur(16px);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background-color: var(--bg-dark);
+  color: var(--text-main);
+  background-image: 
+    radial-gradient(circle at 10% 20%, rgba(0, 240, 255, 0.08) 0%, transparent 40%),
+    radial-gradient(circle at 90% 80%, rgba(255, 51, 102, 0.05) 0%, transparent 40%);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.glass-panel {
+  background: var(--bg-card);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  padding: 20px;
+  transition: all 0.3s ease;
+}
+
+.glass-panel:hover {
+  border-color: rgba(0, 240, 255, 0.3);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 0 15px rgba(0, 240, 255, 0.05);
+}
+
+.flex { display: flex; }
+.flex-col { display: flex; flex-direction: column; }
+.items-center { align-items: center; }
+.justify-between { justify-content: space-between; }
+.justify-center { justify-content: center; }
+.gap-2 { gap: 0.5rem; }
+.gap-4 { gap: 1rem; }
+.gap-6 { gap: 1.5rem; }
+.w-full { width: 100%; }
+.h-full { height: 100%; }
+
+.text-sm { font-size: 0.875rem; }
+.text-xs { font-size: 0.75rem; }
+.text-xl { font-size: 1.25rem; font-weight: 600; letter-spacing: 0.5px; }
+.text-2xl { font-size: 1.5rem; font-weight: 700; letter-spacing: 1px; }
+.text-muted { color: var(--text-muted); }
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(0,0,0,0.2);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--bg-card-hover);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-blue);
+}
+
+/* Animations */
+@keyframes pulse-ring {
+  0% { transform: scale(0.8); opacity: 0.5; }
+  100% { transform: scale(2.5); opacity: 0; }
+}
+.pulse-point {
+  position: relative;
+}
+.pulse-point::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; right: 0; bottom: 0;
+  border-radius: 50%;
+  animation: pulse-ring 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+  background: inherit;
+  z-index: -1;
+}
+
+/* Leaflet Overrides */
+.leaflet-container {
+  background: transparent !important;
+  border-radius: 16px;
+}
+.leaflet-control-container .leaflet-bar {
+  border: 1px solid var(--border-color);
+  background: var(--bg-card);
+  backdrop-filter: var(--glass-blur);
+}
+.leaflet-control-container .leaflet-bar a {
+  background: transparent !important;
+  color: var(--accent-blue) !important;
+  border-bottom: 1px solid var(--border-color) !important;
+}
+.leaflet-control-container .leaflet-bar a:hover {
+  background: rgba(0, 240, 255, 0.1) !important;
+}
+
+/* Invert the standard OSM map to create a beautiful dark mode without API keys! */
+.leaflet-tile {
+  filter: invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%);
+}
+
+/* Fix dropdown options being white-on-white in light mode OS */
+select option {
+  background-color: #050a15;
+  color: white;
+}
+
+/* Radar Pulse Animation for Map Markers */
+@keyframes radarPulse {
+  0% { stroke-width: 1; opacity: 1; fill-opacity: 0.1; }
+  50% { stroke-width: 4; opacity: 0.5; fill-opacity: 0.4; }
+  100% { stroke-width: 1; opacity: 1; fill-opacity: 0.1; }
+}
+.radar-pulse {
+  animation: radarPulse 2s infinite;
+}
